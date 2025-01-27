@@ -28,31 +28,31 @@
         tools:ignore="HardcodedText,MissingConstraints" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="******@ mail.com"
-        android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="201dp"
-        tools:ignore="HardcodedText,MissingConstraints" />
-
-    <EditText
-        android:id="@+id/editTextTextPassword3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/editTextPassword"
+        android:layout_width="257dp"
+        android:layout_height="46dp"
         android:ems="10"
         android:hint="**********"
         android:inputType="textPassword"
-        tools:layout_editor_absoluteX="41dp"
-        tools:layout_editor_absoluteY="285dp"
-        app:boxStrokeColor="@color/black"
         app:boxBackgroundMode="outline"
-        tools:ignore="HardcodedText,MissingConstraints" />
+        app:boxStrokeColor="@color/black"
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="274dp" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="257dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:hint="******@ mail.com"
+        android:inputType="textEmailAddress"
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="194dp" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/сheckBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remember password"
@@ -61,7 +61,7 @@
         tools:ignore="HardcodedText,MissingConstraints" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonLogIn"
         android:layout_width="189dp"
         android:layout_height="61dp"
         android:text="Log in"
@@ -70,15 +70,26 @@
         tools:ignore="HardcodedText,MissingConstraints" />
 
     <TextView
+        android:id="@+id/textViewSForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.871"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="347dp" />
+
+    <TextView
         android:id="@+id/textViewSignInPrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already have an account?Sign Up"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="685dp"
-        tools:ignore="HardcodedText,MissingConstraints" />
+        tools:ignore="HardcodedText,MissingConstraints"
+        tools:layout_editor_absoluteY="672dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

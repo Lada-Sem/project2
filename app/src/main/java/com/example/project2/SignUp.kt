@@ -1,5 +1,6 @@
 package com.example.project2
 
+import SupabaseManager
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -12,14 +13,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignUp : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var confirmPasswordEditText: EditText
     private lateinit var termsCheckBox: CheckBox
+    private val supabaseManager = SupabaseManager()
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -29,16 +34,10 @@ class SignUp : AppCompatActivity() {
         confirmPasswordEditText = findViewById(R.id.editTextTextPassword2)
         termsCheckBox = findViewById(R.id.checkBox)
 
+        findViewById<Button>(R.id.button).setOnClickListener { signUp() }
 
-        // Обработка нажатия на кнопку "Sign Up".
-        findViewById<Button>(R.id.button).setOnClickListener {
-            signUp()
-        }
-
-        // Обработка нажатия на текст "Sign in".
         findViewById<TextView>(R.id.textViewSignInPrompt).setOnClickListener {
-            val intent = Intent(this, LogIn::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, LogIn::class.java))
         }
     }
 
@@ -62,11 +61,21 @@ class SignUp : AppCompatActivity() {
             return
         }
 
-        val intent = Intent(this, LogIn::class.java)
-        startActivity(intent)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                supabaseManager.signUp(email, password, "", "")
+                withContext(Dispatchers.Main) {
+                    startActivity(Intent(this@SignUp, LogIn::class.java))
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@SignUp, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
-    private fun isValidEmail(email: String): Boolean {
+    private fun isValidEmail(email:String): Boolean {
         val emailPattern = "[a-z0-9]+@[a-z0-9]+\\.ru"
         return email.matches(emailPattern.toRegex())
     }

@@ -18,28 +18,23 @@ class SupabaseManager {
         install(Auth)
 
     }
-    suspend fun signINOTP(mail: String){
-        supa.auth.signInWith(OTP){
-            email = mail
-        }
-
-    }
-    suspend fun signIn(mail: String,pass: String) {
+    suspend fun signIn(mail: String, pass: String) {
         supa.auth.signInWith(Email) {
             email = mail
             password = pass
         }
     }
 
-    suspend fun signUp(mail: String, pass: String, phone: String, name:String){
+    suspend fun signUp(mail: String, pass: String, phone: String, name: String) {
         supa.auth.signUpWith(Email) {
-            email = email
+            email = mail
             password = pass
         }
 
-        val user = supa.auth.sessionManager.loadSession()?.user?.id
+        val userId = supa.auth.sessionManager.loadSession()?.user?.id ?: return
+
         val newUser = mapOf(
-            "id" to user,
+            "id" to userId,
             "balance" to 0.00f,
             "is_courier" to false,
             "name" to name,
@@ -48,13 +43,24 @@ class SupabaseManager {
 
         supa.from("users").insert(newUser)
     }
-    suspend fun resetpass(mail: String) {
-        supa.auth.resetPasswordForEmail(mail)
+
+    suspend fun signInOTP(mail: String) {
+        supa.auth.signInWith(OTP) {
+            email = mail
+        }
     }
-    suspend fun sendOTP(mail: String, code:String) {
+
+    suspend fun sendOTP(mail: String, code: String) {
         supa.auth.verifyEmailOtp(OtpType.Email.EMAIL, mail, code)
     }
 
+    suspend fun resetPassword(pass: String) {
+        supa.auth.updateUser { password = pass }
+    }
+
+    suspend fun resetPasswordForEmail(mail: String) {
+        supa.auth.resetPasswordForEmail(mail)
+    }
 }
 
 

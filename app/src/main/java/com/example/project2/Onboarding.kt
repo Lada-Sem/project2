@@ -44,7 +44,7 @@ class Onboarding : AppCompatActivity() {
             } else {
                 val sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE)
                 sharedPreferences.edit().putBoolean("is_onboarded", true).apply()
-                startActivity(Intent(this, EndActivity::class.java))
+                startActivity(Intent(this, SignUp::class.java))
                 finish()
             }
         }
@@ -89,5 +89,4 @@ class Onboarding : AppCompatActivity() {
     }
 }
 
-// Класс для представления элемента Onboarding
 data class OnboardingItem(val imageResId: Int, val title: String, val description: String)
